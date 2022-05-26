@@ -1,14 +1,12 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-19 15:33:02
- * @LastEditTime: 2022-05-20 21:12:42
+ * @LastEditTime: 2022-05-25 21:33:05
  * @LastEditors: ChenRP07
  * @Description:
  */
 
 #include "coder.h"
-#include <algorithm>
-#include <cstddef>
 using namespace pco;
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-result"
@@ -139,7 +137,8 @@ void coder::MortonXY2Index(const std::vector<std::vector<uint8_t>>& __image, std
 }
 
 /***
- * @description: use turbojpeg compress __image and write the compressed image into __file_name, jpeg compress quality __quality
+ * @description: use turbojpeg compress __image and write the compressed image
+ * into __file_name, jpeg compress quality __quality
  * @param {vector<vector<uint8_t>>&} __image
  * @param {string&} __file_name
  * @param {int} __quality
@@ -275,6 +274,102 @@ void coder::TurboJpegDecoder(std::vector<std::vector<uint8_t>>& __image, const s
             __image[i][j * 3 + 2] = __buffer[__index + 2];
             __index += 3;
         }
+    }
+}
+
+void coder::ZstdEncoder(const std::string& __source, FILE* __file, const int kCompressionLevel) {
+    try {
+        if (__source.empty()) {
+            throw "No data in source string.";
+        }
+
+        if (kCompressionLevel < ZSTD_minCLevel() || kCompressionLevel > ZSTD_maxCLevel()) {
+            throw("Wrong compression level, must be from " + std::to_string(ZSTD_minCLevel()) + " to " + std::to_string(ZSTD_maxCLevel()) + ".").c_str();
+        }
+
+        // compressed string in __destination
+        std::string __destination;
+
+        // malloc some space
+        const size_t kBufferSize = ZSTD_compressBound(__source.size());
+        __destination.resize(kBufferSize);
+
+        // compression
+        const size_t kCompressedSize = ZSTD_compress(const_cast<char*>(__destination.c_str()), kBufferSize, __source.c_str(), __source.size(), kCompressionLevel);
+
+        // if error?
+        const size_t __error_code = ZSTD_isError(kCompressedSize);
+
+        if (__error_code != 0) {
+            throw "Wrong compressed string size.";
+        }
+        // delete excess space
+        __destination.resize(kCompressedSize);
+
+        if (__file == nullptr) {
+            throw "Null file pointer.";
+        }
+
+        // write compressed string size to file
+        fwrite(&kCompressedSize, sizeof(size_t), 1, __file);
+        // write compressed string to file
+        fwrite(__destination.c_str(), sizeof(char), __destination.size(), __file);
+
+        if (ferror(__file)) {
+            throw "Cannot write compressed string to file.";
+        }
+    }
+    catch (const char* error_message) {
+        std::cerr << "Fatal error in Zstd compression : " << error_message << std::endl;
+        std::exit(1);
+    }
+}
+
+void coder::ZstdDecoder(std::string& __source, FILE* __file) {
+    try {
+        if (__file == nullptr) {
+            throw "Null file pointer.";
+        }
+
+        // read compressed string size
+        size_t kCompressedSize;
+        fread(&kCompressedSize, sizeof(size_t), 1, __file);
+
+        // read compressed string
+        std::string __destination;
+        __destination.resize(kCompressedSize);
+
+        for (size_t i = 0; i < kCompressedSize; i++) {
+            fread(&__destination[i], sizeof(char), 1, __file);
+        }
+
+        if (ferror(__file)) {
+            throw "Cannot read compressed string from file.";
+        }
+
+        // malloc some space
+        const size_t kBufferSize = ZSTD_getFrameContentSize(__destination.c_str(), __destination.size());
+        if (kBufferSize == 0 || kBufferSize == ZSTD_CONTENTSIZE_UNKNOWN || kBufferSize == ZSTD_CONTENTSIZE_ERROR) {
+            throw "Wrong buffer size.";
+        }
+
+        __source.resize(kBufferSize);
+
+        // decompression
+        const size_t kDecompressedSize = ZSTD_decompress(const_cast<char*>(__source.c_str()), kBufferSize, __destination.c_str(), __destination.size());
+
+        // if error?
+        const size_t __error_code = ZSTD_isError(kDecompressedSize);
+        if (__error_code != 0) {
+            throw "Wrong decompressed string size.";
+        }
+
+        // free excess space
+        __source.resize(kDecompressedSize);
+    }
+    catch (const char* error_message) {
+        std::cerr << "Fatal error in Zstd compression : " << error_message << std::endl;
+        std::exit(1);
     }
 }
 #pragma GCC diagnostic pop
