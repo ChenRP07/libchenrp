@@ -1,9 +1,9 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-22 16:59:30
- * @LastEditTime: 2022-05-25 21:13:54
+ * @LastEditTime: 2022-05-26 16:46:48
  * @LastEditors: ChenRP07
- * @Description:
+ * @Description: This namespace pco::coder contain Morton code 1D-2D converter, TurbojpegCoder and ZstdCoder.
  */
 #ifndef _VOLUMETRIC_VIDEO_CODER_H_
 #define _VOLUMETRIC_VIDEO_CODER_H_
@@ -22,12 +22,18 @@
 
 namespace pco {
 namespace coder {
+    // convert a color sequence to a 2D Morton ordered image, return size of color sequence
     extern size_t MortonIndex2XY(const std::vector<uint8_t>&, std::vector<std::vector<uint8_t>>&);
-    extern void   MortonXY2Index(const std::vector<std::vector<uint8_t>>&, std::vector<uint8_t>&, const size_t);
-    extern void   TurboJpegEncoder(const std::vector<std::vector<uint8_t>>&, const std::string&, const int);
-    extern void   TurboJpegDecoder(std::vector<std::vector<uint8_t>>&, const std::string&);
-    extern void   ZstdEncoder(const std::string&, FILE*, const int);
-    extern void   ZstdDecoder(std::string&, FILE*);
+    // convert a 2D Morton ordered image to a color sequence
+    extern void MortonXY2Index(const std::vector<std::vector<uint8_t>>&, std::vector<uint8_t>&, const size_t);
+    // save a 2D image to a *.jpg file, using a SIMD accelerated turbojpeg library
+    extern void TurboJpegEncoder(const std::vector<std::vector<uint8_t>>&, const std::string&, const int);
+    // read a 2D image from a *.jpg file, using a SIMD accelerated turbojpeg library
+    extern void TurboJpegDecoder(std::vector<std::vector<uint8_t>>&, const std::string&);
+    // compress a string using entropy coder ZStandard, write the Size + Data to file
+    extern void ZstdEncoder(const std::string&, FILE*, const int);
+    // read a compressed string from file and decompress it
+    extern void ZstdDecoder(std::string&, FILE*);
 }  // namespace coder
 }  // namespace pco
 #endif

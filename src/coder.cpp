@@ -1,15 +1,17 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-19 15:33:02
- * @LastEditTime: 2022-05-26 15:40:21
+ * @LastEditTime: 2022-05-26 16:37:13
  * @LastEditors: ChenRP07
- * @Description:
+ * @Description: C++ implementation source code for coder.h
  */
 
 #include "coder.h"
+
 using namespace pco;
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-result"
+
 /***
  * @description: map a 1-D RGB __sequence to a 2-D Morton ordered __image
  * @param {vector<uint8_t>} __sequence
@@ -277,6 +279,13 @@ void coder::TurboJpegDecoder(std::vector<std::vector<uint8_t>>& __image, const s
     }
 }
 
+/***
+ * @description: compress a string using an entropy coder ZStandard, write Size + Data to file
+ * @param {string&} __source
+ * @param {FILE*} __file
+ * @param {int} kCompressionLevel
+ * @return {*}
+ */
 void coder::ZstdEncoder(const std::string& __source, FILE* __file, const int kCompressionLevel) {
     try {
         if (__source.empty()) {
@@ -326,6 +335,12 @@ void coder::ZstdEncoder(const std::string& __source, FILE* __file, const int kCo
     }
 }
 
+/***
+ * @description: read a ZStandard compressed string from file and decompress it
+ * @param {string&} __source
+ * @param {FILE*} __file
+ * @return {*}
+ */
 void coder::ZstdDecoder(std::string& __source, FILE* __file) {
     try {
         if (__file == nullptr) {
