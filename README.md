@@ -1,9 +1,9 @@
 <!--
  * @Author: ChenRP07
  * @Date: 2022-05-22 16:59:30
- * @LastEditTime: 2022-05-26 17:05:30
+ * @LastEditTime: 2022-05-26 17:06:55
  * @LastEditors: ChenRP07
- * @Description: 
+ * @Description: README.md
 -->
 # libvvc
 ## This is an library of MortonCoding, Turbo-jpegCoding and ZstdCoding.
@@ -34,3 +34,5 @@ Your CMakeLists.txt should contain
 `target_link_libraries(YOURNAME libturbojpeg.so.0 libzstd.so libvvc.so)`
 
 or any code equal to it. 
+
+@copyright ChenRP07
