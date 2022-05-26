@@ -31,12 +31,12 @@
 *.out
 *.app
 
-dll/
-3rd/*
-3rd/*
+dll/*
+3rd/zstd/*
+3rd/libjpeg-turbo/*
 build/*
 test/*
 debug/*
 release/*
 .*
-!.gitignore
+!./.gitignore
