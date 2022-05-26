@@ -1,9 +1,9 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-25 14:49:42
- * @LastEditTime: 2022-04-25 14:57:43
+ * @LastEditTime: 2022-05-26 17:13:02
  * @LastEditors: ChenRP07
- * @Description:
+ * @Description: implementation of constant clustering
  */
 #include "cluster.h"
 
@@ -28,7 +28,6 @@ SimplePatch::SimplePatch(int num) : Patch() {
 }
 
 void SimplePatch::Clustering() {
-
     const int kPointPerCluster = std::floor(this->point_cloud_.size() / this->patch_number_);
 
     // compare method for priority_queue

@@ -1,9 +1,9 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-27 19:34:49
- * @LastEditTime: 2022-04-27 19:34:49
+ * @LastEditTime: 2022-05-26 17:12:32
  * @LastEditors: ChenRP07
- * @Description:
+ * @Description: implementation of ply file IO
  */
 
 #include "cluster.h"
@@ -21,7 +21,7 @@ using namespace pco;
 int io::LoadColorPlyFile(const std::string& file_name, pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
     try {
         // file_name must be *.ply format
-        std::regex  name_type{ "^.*\\.ply$" };
+        std::regex  name_type{"^.*\\.ply$"};
         std::smatch matches;
         if (!std::regex_search(file_name, matches, name_type))
             throw "Wrong format file name";
@@ -139,7 +139,7 @@ int io::LoadColorPlyFile(const std::string& file_name, pcl::PointCloud<pcl::Poin
 int io::SaveColorPlyFile(const std::string& file_name, const pcl::PointCloud<pcl::PointXYZRGB>& point_cloud, const bool binary_mode) {
     try {
         // file_name must be *.ply format
-        std::regex  name_type{ "^.*\\.ply$" };
+        std::regex  name_type{"^.*\\.ply$"};
         std::smatch matches;
         if (!std::regex_search(file_name, matches, name_type))
             throw "Wrong format file name";
@@ -209,7 +209,7 @@ int io::SaveColorPlyFile(const std::string& file_name, const pcl::PointCloud<pcl
 int io::SaveUniqueColorPlyFile(const std::string& file_name, const pcl::PointCloud<pcl::PointXYZRGB>& point_cloud, unsigned int unique_color, const bool binary_mode) {
     try {
         // file_name must be *.ply format
-        std::regex  name_type{ "^.*\\.ply$" };
+        std::regex  name_type{"^.*\\.ply$"};
         std::smatch matches;
         if (!std::regex_search(file_name, matches, name_type))
             throw "Wrong format file name";
