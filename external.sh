@@ -12,7 +12,7 @@ cd build
 cmake -G"Unix Makefiles" -DCMAKE_ASM_NASM_COMPILER=/usr/bin/nasm ..
 make -j
 cd ../../../
-cp ./3rd/libjpeg-turbo/build/libturbojpeg.so ./dll/
+cp ./3rd/libjpeg-turbo/build/libturbojpeg.so.0 ./dll/
 cd 3rd/zstd/
 make -j
 cd ../../

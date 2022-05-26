@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-19 15:33:02
- * @LastEditTime: 2022-05-25 21:33:05
+ * @LastEditTime: 2022-05-26 15:40:21
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -312,6 +312,7 @@ void coder::ZstdEncoder(const std::string& __source, FILE* __file, const int kCo
 
         // write compressed string size to file
         fwrite(&kCompressedSize, sizeof(size_t), 1, __file);
+        printf("%lu\n", kCompressedSize);
         // write compressed string to file
         fwrite(__destination.c_str(), sizeof(char), __destination.size(), __file);
 
@@ -342,7 +343,6 @@ void coder::ZstdDecoder(std::string& __source, FILE* __file) {
         for (size_t i = 0; i < kCompressedSize; i++) {
             fread(&__destination[i], sizeof(char), 1, __file);
         }
-
         if (ferror(__file)) {
             throw "Cannot read compressed string from file.";
         }

@@ -32,8 +32,8 @@
 *.app
 
 dll/*
-3rd/zstd/*
-3rd/libjpeg-turbo/*
+3rd/zstd/build/*
+3rd/libjpeg-turbo/build/*
 build/*
 test/*
 debug/*
