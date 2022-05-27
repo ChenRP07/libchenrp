@@ -1,7 +1,7 @@
 <!--
  * @Author: ChenRP07
  * @Date: 2022-05-26 17:11:47
- * @LastEditTime: 2022-05-26 17:17:46
+ * @LastEditTime: 2022-05-27 09:35:32
  * @LastEditors: ChenRP07
  * @Description: readme
 -->
@@ -21,9 +21,9 @@ Then build it.
 
 `source ./cmake.sh`
 
-Our bash script will automatically build and make the libvvc.
+Our bash script will automatically build and make the libcluster.
 
-If you want to use libvvc in your project ~/DIR/, you may run an install srcipt.
+If you want to use libcluster in your project ~/DIR/, you may run an install srcipt.
 
 `source ./install.sh ~/DIR`
 
