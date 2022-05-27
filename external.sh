@@ -19,3 +19,4 @@ make -j
 cd ../../
 cp ./3rd/zstd/lib/libzstd.so ./dll/
 cp ./3rd/zstd/lib/zstd.h ./include/
+rm -rf ./3rd/libjpeg-turbo/build
