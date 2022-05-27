@@ -32,7 +32,6 @@
 *.app
 
 dll/*
-3rd/
 build/*
 test/*
 debug/*
