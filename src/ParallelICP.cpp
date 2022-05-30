@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-07 15:04:27
- * @LastEditTime: 2022-05-30 16:06:33
+ * @LastEditTime: 2022-05-30 16:45:25
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -131,6 +131,7 @@ void ParallelICP::ParallelAlign() {
 	// collect whole i-frame
 	pcl::PointCloud<pcl::PointXYZRGB> __i_frame;
 	for (size_t i = 0; i < this->source_patches_.size(); i++) {
+		printf("Patch #%lu, size is %lu", i, this->source_patches_.size());
 		for (size_t j = 0; j < this->source_patches_[i].size(); j++) {
 			__i_frame.emplace_back(this->source_patches_[i][j]);
 		}
