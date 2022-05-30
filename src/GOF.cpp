@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-13 10:58:55
- * @LastEditTime: 2022-05-27 20:35:29
+ * @LastEditTime: 2022-05-30 14:58:19
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -15,7 +15,8 @@ using namespace pco::octree;
  * @param {int} group_of_frames
  * @return {*}
  */
-GOF::GOF(const size_t group_of_frames) : kGroupOfFrames{group_of_frames} {
+GOF::GOF(const size_t group_of_frames)
+    : kGroupOfFrames{group_of_frames}, frame_patches_{std::vector<pcl::PointCloud<pcl::PointXYZRGB>>(group_of_frames)}, motion_vectors_{std::vector<Eigen::Matrix4f>(group_of_frames)} {
 	try {
 		if (this->kGroupOfFrames < 1) {
 			throw "GOF size is smaller than 1.";
@@ -25,13 +26,13 @@ GOF::GOF(const size_t group_of_frames) : kGroupOfFrames{group_of_frames} {
 		std::cerr << "GOF constructing failed : " << error_message << std::endl;
 		std::exit(1);
 	}
-
-	this->min_x_ = FLT_MAX;
-	this->max_x_ = FLT_MIN;
-	this->min_y_ = FLT_MAX;
-	this->max_y_ = FLT_MIN;
-	this->min_z_ = FLT_MAX;
-	this->max_z_ = FLT_MIN;
+	this->min_x_        = FLT_MAX;
+	this->max_x_        = FLT_MIN;
+	this->min_y_        = FLT_MAX;
+	this->max_y_        = FLT_MIN;
+	this->min_z_        = FLT_MAX;
+	this->max_z_        = FLT_MIN;
+	this->frame_number_ = 0;
 }
 
 /***

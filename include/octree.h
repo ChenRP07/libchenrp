@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:35
- * @LastEditTime: 2022-05-27 20:35:27
+ * @LastEditTime: 2022-05-30 14:57:47
  * @LastEditors: ChenRP07
  * @Description: C++ header for class GOF and class octree.
  */
@@ -68,6 +68,7 @@ namespace octree {
 		std::vector<Eigen::Matrix4f>                   motion_vectors_;
 
 		const size_t kGroupOfFrames;
+		size_t       frame_number_;
 		float        min_x_;
 		float        max_x_;
 		float        min_y_;
