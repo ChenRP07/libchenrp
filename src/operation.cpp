@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-29 10:42:41
- * @LastEditTime: 2022-04-29 10:42:42
+ * @LastEditTime: 2022-05-30 18:34:46
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -17,8 +17,8 @@ using namespace pco;
  * @return {__result}
  */
 pcl::PointXYZ operation::PointAddAssign(const pcl::PointXYZ& __a, const pcl::PointXYZ& __b) {
-    pcl::PointXYZ __result{ __a.x + __b.x, __a.y + __b.y, __a.z + __b.z };
-    return __result;
+	pcl::PointXYZ __result{__a.x + __b.x, __a.y + __b.y, __a.z + __b.z};
+	return __result;
 }
 
 /***
@@ -28,7 +28,7 @@ pcl::PointXYZ operation::PointAddAssign(const pcl::PointXYZ& __a, const pcl::Poi
  * @return {*}
  */
 void operation::PointAddCopy(pcl::PointXYZ& __a, const pcl::PointXYZ& __b) {
-    __a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
+	__a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
 }
 
 /***
@@ -38,8 +38,8 @@ void operation::PointAddCopy(pcl::PointXYZ& __a, const pcl::PointXYZ& __b) {
  * @return {__result}
  */
 pcl::PointXYZ operation::PointAddAssign(const pcl::PointXYZ& __a, const pcl::PointXYZRGB& __b) {
-    pcl::PointXYZ __result{ __a.x + __b.x, __a.y + __b.y, __a.z + __b.z };
-    return __result;
+	pcl::PointXYZ __result{__a.x + __b.x, __a.y + __b.y, __a.z + __b.z};
+	return __result;
 }
 
 /***
@@ -49,7 +49,7 @@ pcl::PointXYZ operation::PointAddAssign(const pcl::PointXYZ& __a, const pcl::Poi
  * @return {*}
  */
 void operation::PointAddCopy(pcl::PointXYZ& __a, const pcl::PointXYZRGB& __b) {
-    __a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
+	__a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
 }
 
 /***
@@ -59,9 +59,9 @@ void operation::PointAddCopy(pcl::PointXYZ& __a, const pcl::PointXYZRGB& __b) {
  * @return {__result}
  */
 pcl::PointXYZRGB operation::PointAddAssign(const pcl::PointXYZRGB& __a, const pcl::PointXYZ& __b) {
-    pcl::PointXYZRGB __result{ __a };
-    __result.x += __b.x, __result.y += __b.y, __result.z += __b.z;
-    return __result;
+	pcl::PointXYZRGB __result{__a};
+	__result.x += __b.x, __result.y += __b.y, __result.z += __b.z;
+	return __result;
 }
 
 /***
@@ -71,7 +71,7 @@ pcl::PointXYZRGB operation::PointAddAssign(const pcl::PointXYZRGB& __a, const pc
  * @return {*}
  */
 void operation::PointAddCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZ& __b) {
-    __a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
+	__a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
 }
 
 /***
@@ -81,9 +81,9 @@ void operation::PointAddCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZ& __b) {
  * @return {__result}
  */
 pcl::PointXYZRGB operation::PointAddAssign(const pcl::PointXYZRGB& __a, const pcl::PointXYZRGB& __b) {
-    pcl::PointXYZRGB __result{ __a };
-    __result.x += __b.x, __result.y += __b.y, __result.z += __b.z;
-    return __result;
+	pcl::PointXYZRGB __result{__a};
+	__result.x += __b.x, __result.y += __b.y, __result.z += __b.z;
+	return __result;
 }
 
 /***
@@ -93,7 +93,7 @@ pcl::PointXYZRGB operation::PointAddAssign(const pcl::PointXYZRGB& __a, const pc
  * @return {*}
  */
 void operation::PointAddCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZRGB& __b) {
-    __a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
+	__a.x += __b.x, __a.y += __b.y, __a.z += __b.z;
 }
 
 /***
@@ -103,8 +103,8 @@ void operation::PointAddCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZRGB& __b)
  * @return {__result}
  */
 pcl::PointXYZ operation::PointSubAssign(const pcl::PointXYZ& __a, const pcl::PointXYZ& __b) {
-    pcl::PointXYZ __result{ __a.x - __b.x, __a.y - __b.y, __a.z - __b.z };
-    return __result;
+	pcl::PointXYZ __result{__a.x - __b.x, __a.y - __b.y, __a.z - __b.z};
+	return __result;
 }
 
 /***
@@ -114,7 +114,7 @@ pcl::PointXYZ operation::PointSubAssign(const pcl::PointXYZ& __a, const pcl::Poi
  * @return {*}
  */
 void operation::PointSubCopy(pcl::PointXYZ& __a, const pcl::PointXYZ& __b) {
-    __a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
+	__a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
 }
 
 /***
@@ -124,8 +124,8 @@ void operation::PointSubCopy(pcl::PointXYZ& __a, const pcl::PointXYZ& __b) {
  * @return {__result}
  */
 pcl::PointXYZ operation::PointSubAssign(const pcl::PointXYZ& __a, const pcl::PointXYZRGB& __b) {
-    pcl::PointXYZ __result{ __a.x - __b.x, __a.y - __b.y, __a.z - __b.z };
-    return __result;
+	pcl::PointXYZ __result{__a.x - __b.x, __a.y - __b.y, __a.z - __b.z};
+	return __result;
 }
 
 /***
@@ -135,7 +135,7 @@ pcl::PointXYZ operation::PointSubAssign(const pcl::PointXYZ& __a, const pcl::Poi
  * @return {*}
  */
 void operation::PointSubCopy(pcl::PointXYZ& __a, const pcl::PointXYZRGB& __b) {
-    __a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
+	__a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
 }
 
 /***
@@ -145,9 +145,9 @@ void operation::PointSubCopy(pcl::PointXYZ& __a, const pcl::PointXYZRGB& __b) {
  * @return {__result}
  */
 pcl::PointXYZRGB operation::PointSubAssign(const pcl::PointXYZRGB& __a, const pcl::PointXYZ& __b) {
-    pcl::PointXYZRGB __result{ __a };
-    __result.x -= __b.x, __result.y -= __b.y, __result.z -= __b.z;
-    return __result;
+	pcl::PointXYZRGB __result{__a};
+	__result.x -= __b.x, __result.y -= __b.y, __result.z -= __b.z;
+	return __result;
 }
 
 /***
@@ -157,7 +157,7 @@ pcl::PointXYZRGB operation::PointSubAssign(const pcl::PointXYZRGB& __a, const pc
  * @return {*}
  */
 void operation::PointSubCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZ& __b) {
-    __a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
+	__a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
 }
 
 /***
@@ -167,9 +167,9 @@ void operation::PointSubCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZ& __b) {
  * @return {__result}
  */
 pcl::PointXYZRGB operation::PointSubAssign(const pcl::PointXYZRGB& __a, const pcl::PointXYZRGB& __b) {
-    pcl::PointXYZRGB __result{ __a };
-    __result.x -= __b.x, __result.y -= __b.y, __result.z -= __b.z;
-    return __result;
+	pcl::PointXYZRGB __result{__a};
+	__result.x -= __b.x, __result.y -= __b.y, __result.z -= __b.z;
+	return __result;
 }
 
 /***
@@ -179,7 +179,15 @@ pcl::PointXYZRGB operation::PointSubAssign(const pcl::PointXYZRGB& __a, const pc
  * @return {*}
  */
 void operation::PointSubCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZRGB& __b) {
-    __a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
+	__a.x -= __b.x, __a.y -= __b.y, __a.z -= __b.z;
+}
+
+void operation::PointDivCopy(pcl::PointXYZ& __a, const size_t __b) {
+	__a.x /= __b, __a.y /= __b, __a.z /= __b;
+}
+
+void operation::PointDivCopy(pcl::PointXYZRGB& __a, const size_t __b) {
+	__a.x /= __b, __a.y /= __b, __a.z /= __b;
 }
 
 /***
@@ -189,11 +197,11 @@ void operation::PointSubCopy(pcl::PointXYZRGB& __a, const pcl::PointXYZRGB& __b)
  * @return {__result}
  */
 Eigen::Matrix4f operation::MatrixAddAssign(const Eigen::Matrix4f& __matrix, const pcl::PointXYZ& __vector) {
-    Eigen::Matrix4f __result{ __matrix };
-    __result(0, 3) += __vector.x;
-    __result(1, 3) += __vector.y;
-    __result(2, 3) += __vector.z;
-    return __result;
+	Eigen::Matrix4f __result{__matrix};
+	__result(0, 3) += __vector.x;
+	__result(1, 3) += __vector.y;
+	__result(2, 3) += __vector.z;
+	return __result;
 }
 
 /***
@@ -203,11 +211,11 @@ Eigen::Matrix4f operation::MatrixAddAssign(const Eigen::Matrix4f& __matrix, cons
  * @return {*}
  */
 Eigen::Matrix4f operation::MatrixAddAssign(const Eigen::Matrix4f& __matrix, const pcl::PointXYZRGB& __vector) {
-    Eigen::Matrix4f __result{ __matrix };
-    __result(0, 3) += __vector.x;
-    __result(1, 3) += __vector.y;
-    __result(2, 3) += __vector.z;
-    return __result;
+	Eigen::Matrix4f __result{__matrix};
+	__result(0, 3) += __vector.x;
+	__result(1, 3) += __vector.y;
+	__result(2, 3) += __vector.z;
+	return __result;
 }
 
 /***
@@ -217,9 +225,9 @@ Eigen::Matrix4f operation::MatrixAddAssign(const Eigen::Matrix4f& __matrix, cons
  * @return {*}
  */
 void operation::MatrixAddCopy(Eigen::Matrix4f& __matrix, const pcl::PointXYZ& __vector) {
-    __matrix(0, 3) += __vector.x;
-    __matrix(1, 3) += __vector.y;
-    __matrix(2, 3) += __vector.z;
+	__matrix(0, 3) += __vector.x;
+	__matrix(1, 3) += __vector.y;
+	__matrix(2, 3) += __vector.z;
 }
 
 /***
@@ -229,9 +237,9 @@ void operation::MatrixAddCopy(Eigen::Matrix4f& __matrix, const pcl::PointXYZ& __
  * @return {*}
  */
 void operation::MatrixAddCopy(Eigen::Matrix4f& __matrix, const pcl::PointXYZRGB& __vector) {
-    __matrix(0, 3) += __vector.x;
-    __matrix(1, 3) += __vector.y;
-    __matrix(2, 3) += __vector.z;
+	__matrix(0, 3) += __vector.x;
+	__matrix(1, 3) += __vector.y;
+	__matrix(2, 3) += __vector.z;
 }
 
 /***
@@ -241,13 +249,13 @@ void operation::MatrixAddCopy(Eigen::Matrix4f& __matrix, const pcl::PointXYZRGB&
  * @return {*}
  */
 void operation::PointCloudMul(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud, const Eigen::Matrix4f& __matrix) {
-    for (size_t i = 0; i < __point_cloud.size(); i++) {
-        pcl::PointXYZRGB temp;
-        temp.x           = __point_cloud[i].x * __matrix(0, 0) + __point_cloud[i].y * __matrix(0, 1) + __point_cloud[i].z * __matrix(0, 2) + __matrix(0, 3);
-        temp.y           = __point_cloud[i].x * __matrix(1, 0) + __point_cloud[i].y * __matrix(1, 1) + __point_cloud[i].z * __matrix(1, 2) + __matrix(1, 3);
-        temp.z           = __point_cloud[i].x * __matrix(2, 0) + __point_cloud[i].y * __matrix(2, 1) + __point_cloud[i].z * __matrix(2, 2) + __matrix(2, 3);
-        __point_cloud[i] = temp;
-    }
+	for (size_t i = 0; i < __point_cloud.size(); i++) {
+		pcl::PointXYZRGB temp;
+		temp.x           = __point_cloud[i].x * __matrix(0, 0) + __point_cloud[i].y * __matrix(0, 1) + __point_cloud[i].z * __matrix(0, 2) + __matrix(0, 3);
+		temp.y           = __point_cloud[i].x * __matrix(1, 0) + __point_cloud[i].y * __matrix(1, 1) + __point_cloud[i].z * __matrix(1, 2) + __matrix(1, 3);
+		temp.z           = __point_cloud[i].x * __matrix(2, 0) + __point_cloud[i].y * __matrix(2, 1) + __point_cloud[i].z * __matrix(2, 2) + __matrix(2, 3);
+		__point_cloud[i] = temp;
+	}
 }
 
 /***
@@ -258,13 +266,13 @@ void operation::PointCloudMul(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud, 
  * @return {*}
  */
 void operation::PointCloudMulAdd(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud_x, const pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud_y, const Eigen::Matrix4f& __matrix) {
-    for (size_t i = 0; i < __point_cloud_y.size(); i++) {
-        pcl::PointXYZRGB temp;
-        temp.x = __point_cloud_x[i].x * __matrix(0, 0) + __point_cloud_x[i].y * __matrix(0, 1) + __point_cloud_x[i].z * __matrix(0, 2) + __matrix(0, 3);
-        temp.y = __point_cloud_x[i].x * __matrix(1, 0) + __point_cloud_x[i].y * __matrix(1, 1) + __point_cloud_x[i].z * __matrix(1, 2) + __matrix(1, 3);
-        temp.z = __point_cloud_x[i].x * __matrix(2, 0) + __point_cloud_x[i].y * __matrix(2, 1) + __point_cloud_x[i].z * __matrix(2, 2) + __matrix(2, 3);
-        __point_cloud_x.push_back(temp);
-    }
+	for (size_t i = 0; i < __point_cloud_y.size(); i++) {
+		pcl::PointXYZRGB temp;
+		temp.x = __point_cloud_y[i].x * __matrix(0, 0) + __point_cloud_y[i].y * __matrix(0, 1) + __point_cloud_y[i].z * __matrix(0, 2) + __matrix(0, 3);
+		temp.y = __point_cloud_y[i].x * __matrix(1, 0) + __point_cloud_y[i].y * __matrix(1, 1) + __point_cloud_y[i].z * __matrix(1, 2) + __matrix(1, 3);
+		temp.z = __point_cloud_y[i].x * __matrix(2, 0) + __point_cloud_y[i].y * __matrix(2, 1) + __point_cloud_y[i].z * __matrix(2, 2) + __matrix(2, 3);
+		__point_cloud_x.push_back(temp);
+	}
 }
 
 /***
@@ -274,9 +282,9 @@ void operation::PointCloudMulAdd(pcl::PointCloud<pcl::PointXYZRGB>& __point_clou
  * @return {*}
  */
 void operation::PointCloudAdd(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud, const pcl::PointXYZ& __center) {
-    for (size_t i = 0; i < __point_cloud.size(); i++) {
-        operation::PointAddCopy(__point_cloud[i], __center);
-    }
+	for (size_t i = 0; i < __point_cloud.size(); i++) {
+		operation::PointAddCopy(__point_cloud[i], __center);
+	}
 }
 
 /***
@@ -286,7 +294,7 @@ void operation::PointCloudAdd(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud, 
  * @return {*}
  */
 void operation::PointCloudAdd(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud, const pcl::PointXYZRGB& __center) {
-    for (size_t i = 0; i < __point_cloud.size(); i++) {
-        operation::PointAddCopy(__point_cloud[i], __center);
-    }
+	for (size_t i = 0; i < __point_cloud.size(); i++) {
+		operation::PointAddCopy(__point_cloud[i], __center);
+	}
 }

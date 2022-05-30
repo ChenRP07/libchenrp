@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-28 16:01:28
- * @LastEditTime: 2022-05-30 15:35:39
+ * @LastEditTime: 2022-05-30 17:59:35
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -16,8 +16,8 @@ using namespace pco::registration;
  * @return {*}
  */
 regist_base::regist_base() {
-	this->source_point_cloud_.reserve(10);
-	this->target_point_cloud_.reserve(10);
+	// this->source_point_cloud_.reserve(10);
+	// this->target_point_cloud_.reserve(10);
 	this->tranformation_matrix_ = Eigen::Matrix4f::Identity();
 	this->mean_squred_error_    = -1.0f;
 }
@@ -38,7 +38,11 @@ float regist_base::GetMSE() const {
  */
 void regist_base::SetSourcePointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
 	this->source_point_cloud_.swap(point_cloud);
-	this->result_point_cloud_ = this->source_point_cloud_;
+	this->result_point_cloud_.resize(this->source_point_cloud_.size());
+	for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
+		this->result_point_cloud_[i] = this->source_point_cloud_[i];
+	}
+	// this->result_point_cloud_ = this->source_point_cloud_;
 }
 
 /***
@@ -51,7 +55,11 @@ void regist_base::SetSourcePointCloudCopy(const pcl::PointCloud<pcl::PointXYZRGB
 	for (size_t i = 0; i < point_cloud.size(); i++) {
 		this->source_point_cloud_[i] = point_cloud[i];
 	}
-	this->result_point_cloud_ = this->source_point_cloud_;
+	this->result_point_cloud_.resize(this->source_point_cloud_.size());
+	for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
+		this->result_point_cloud_[i] = this->source_point_cloud_[i];
+	}
+	// this->result_point_cloud_ = this->source_point_cloud_;
 }
 
 /***
@@ -191,7 +199,8 @@ void regist_base::GolbalCentroidAlignment() {
 	for (size_t i = 0; i < this->target_point_cloud_.size(); i++) {
 		pco::operation::PointAddCopy(target_centroid, this->target_point_cloud_[i]);
 	}
-
+	pco::operation::PointDivCopy(source_centroid, this->source_point_cloud_.size());
+	pco::operation::PointDivCopy(target_centroid, this->target_point_cloud_.size());
 	// translate point cloud
 	pco::operation::PointCloudAdd(this->result_point_cloud_, operation::PointSubAssign(target_centroid, source_centroid));
 
@@ -231,6 +240,7 @@ void regist_base::LocalCentroidAlignment() {
 		tree.nearestKSearch(this->source_point_cloud_[i], 1, index, distance);
 		pco::operation::PointAddCopy(align_vector, pco::operation::PointSubAssign(this->target_point_cloud_[index[0]], this->source_point_cloud_[i]));
 	}
+	pco::operation::PointDivCopy(align_vector, this->source_point_cloud_.size());
 
 	// align and record
 	pco::operation::PointCloudAdd(this->result_point_cloud_, align_vector);

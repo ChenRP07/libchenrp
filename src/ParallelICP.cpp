@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-07 15:04:27
- * @LastEditTime: 2022-05-30 16:45:25
+ * @LastEditTime: 2022-05-30 18:35:45
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -52,7 +52,7 @@ void ParallelICP::SetSourcePatchesCopy(std::vector<pcl::PointCloud<pcl::PointXYZ
 
 	// copy patches to source_patches_
 	for (size_t i = 0; i < patches.size(); i++) {
-		for (size_t j = 0; j < patches.size(); j++) {
+		for (size_t j = 0; j < patches[i].size(); j++) {
 			this->source_patches_[i].push_back(patches[i][j]);
 		}
 	}
@@ -131,7 +131,6 @@ void ParallelICP::ParallelAlign() {
 	// collect whole i-frame
 	pcl::PointCloud<pcl::PointXYZRGB> __i_frame;
 	for (size_t i = 0; i < this->source_patches_.size(); i++) {
-		printf("Patch #%lu, size is %lu", i, this->source_patches_.size());
 		for (size_t j = 0; j < this->source_patches_[i].size(); j++) {
 			__i_frame.emplace_back(this->source_patches_[i][j]);
 		}
@@ -149,7 +148,7 @@ void ParallelICP::ParallelAlign() {
 
 	// get result
 	__global.GetResultPointCloudSwap(this->target_point_cloud_);
-	std::cout << "Global alignment ";
+	std::cout << "Global alignment";
 	if (!converge) {
 		std::cout << " not ";
 	}
@@ -179,9 +178,9 @@ void ParallelICP::ParallelAlign() {
 	float MSE_dev = std::sqrt(MSE_accum / (this->mean_squred_errors_.size() - 1));
 
 	std::cout << "Local alignment complete, using " << this->kThreads << " threads." << std::endl;
-	std::cout << "MSE of " << this->mean_squred_errors_.size() << " patches : "
-	          << "avg is " << MSE_avg << ", dev is " << MSE_dev << ", min is " << *std::min_element(this->mean_squred_errors_.begin(), this->mean_squred_errors_.end()) << ", max is "
-	          << *std::max_element(this->mean_squred_errors_.begin(), this->mean_squred_errors_.end());
+	std::cout << "MSE of " << this->mean_squred_errors_.size() << " patches : ";
+	std::cout << "avg is " << MSE_avg << ", dev is " << MSE_dev << ", min is " << *std::min_element(this->mean_squred_errors_.begin(), this->mean_squred_errors_.end()) << ", max is "
+	          << *std::max_element(this->mean_squred_errors_.begin(), this->mean_squred_errors_.end()) << std::endl;
 }
 
 /***
@@ -211,10 +210,16 @@ void ParallelICP::GetTargetPatches(std::vector<pcl::PointCloud<pcl::PointXYZRGB>
 		else if (!indexed) {
 			// transform the source patches
 			pcl::PointCloud<pcl::PointXYZRGB> transformed_source;
+			std::vector<size_t>               source_index;
+			if (this->source_patches_.size() != this->motion_vectors_.size()) {
+				throw "Patch size and Matrix size don't match.";
+			}
 			for (size_t i = 0; i < this->source_patches_.size(); i++) {
 				pco::operation::PointCloudMulAdd(transformed_source, this->source_patches_[i], this->motion_vectors_[i]);
+				for (size_t j = 0; j < this->source_patches_[i].size(); j++) {
+					source_index.emplace_back(i);
+				}
 			}
-
 			// form a kdtree and search nearest neighbor for target points
 			pcl::search::KdTree<pcl::PointXYZRGB> kdtree;
 			kdtree.setInputCloud(transformed_source.makeShared());
@@ -228,7 +233,7 @@ void ParallelICP::GetTargetPatches(std::vector<pcl::PointCloud<pcl::PointXYZRGB>
 				kdtree.nearestKSearch(this->target_point_cloud_[i], 1, __index, __distance);
 
 				// add it into related patch
-				this->target_patch_index_[i] = __index[0];
+				this->target_patch_index_[i] = source_index[__index[0]];
 			}
 
 			// split

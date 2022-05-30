@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-28 15:31:32
- * @LastEditTime: 2022-05-30 15:58:53
+ * @LastEditTime: 2022-05-30 17:47:37
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -45,6 +45,8 @@ namespace operation {
 	extern void PointSubCopy(pcl::PointXYZRGB&, const pcl::PointXYZ&);
 	extern void PointSubCopy(pcl::PointXYZRGB&, const pcl::PointXYZRGB&);
 
+	extern void PointDivCopy(pcl::PointXYZ&, const size_t);
+	extern void PointDivCopy(pcl::PointXYZRGB&, const size_t);
 	// return a(:3) + b
 	extern Eigen::Matrix4f MatrixAddAssign(const Eigen::Matrix4f&, const pcl::PointXYZ&);
 	extern Eigen::Matrix4f MatrixAddAssign(const Eigen::Matrix4f&, const pcl::PointXYZRGB&);
