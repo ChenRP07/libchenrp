@@ -1,4 +1,7 @@
-source ./external.sh
+if [ ! -f ./dll/libturbojpeg.so ] ||  [ ! -f ./dll/libzstd.so ]; then
+    source ./external.sh
+fi
+
 if [ ! -d ./build/ ]; then
     mkdir build
     cd build

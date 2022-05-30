@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-22 16:59:30
- * @LastEditTime: 2022-05-26 16:46:48
+ * @LastEditTime: 2022-05-27 14:41:10
  * @LastEditors: ChenRP07
  * @Description: This namespace pco::coder contain Morton code 1D-2D converter, TurbojpegCoder and ZstdCoder.
  */
@@ -9,6 +9,7 @@
 #define _VOLUMETRIC_VIDEO_CODER_H_
 
 #include "turbojpeg.h"
+#include <Eigen/Dense>
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
