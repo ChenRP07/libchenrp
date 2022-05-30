@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-28 16:01:28
- * @LastEditTime: 2022-04-28 16:01:29
+ * @LastEditTime: 2022-05-30 15:35:39
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -16,10 +16,10 @@ using namespace pco::registration;
  * @return {*}
  */
 regist_base::regist_base() {
-    this->source_point_cloud_.reserve(10);
-    this->target_point_cloud_.reserve(10);
-    this->tranformation_matrix_ = Eigen::Matrix4f::Identity();
-    this->mean_squred_error_    = -1.0f;
+	this->source_point_cloud_.reserve(10);
+	this->target_point_cloud_.reserve(10);
+	this->tranformation_matrix_ = Eigen::Matrix4f::Identity();
+	this->mean_squred_error_    = -1.0f;
 }
 
 /***
@@ -28,7 +28,7 @@ regist_base::regist_base() {
  * @return {float} mean_squred_error_
  */
 float regist_base::GetMSE() const {
-    return this->mean_squred_error_;
+	return this->mean_squred_error_;
 }
 
 /***
@@ -37,8 +37,8 @@ float regist_base::GetMSE() const {
  * @return {*}
  */
 void regist_base::SetSourcePointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
-    this->source_point_cloud_.swap(point_cloud);
-    this->result_point_cloud_ = this->source_point_cloud_;
+	this->source_point_cloud_.swap(point_cloud);
+	this->result_point_cloud_ = this->source_point_cloud_;
 }
 
 /***
@@ -47,11 +47,11 @@ void regist_base::SetSourcePointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& poi
  * @return {*}
  */
 void regist_base::SetSourcePointCloudCopy(const pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
-    this->source_point_cloud_.resize(point_cloud.size());
-    for (size_t i = 0; i < point_cloud.size(); i++) {
-        this->source_point_cloud_[i] = point_cloud[i];
-    }
-    this->result_point_cloud_ = this->source_point_cloud_;
+	this->source_point_cloud_.resize(point_cloud.size());
+	for (size_t i = 0; i < point_cloud.size(); i++) {
+		this->source_point_cloud_[i] = point_cloud[i];
+	}
+	this->result_point_cloud_ = this->source_point_cloud_;
 }
 
 /***
@@ -60,7 +60,7 @@ void regist_base::SetSourcePointCloudCopy(const pcl::PointCloud<pcl::PointXYZRGB
  * @return {*}
  */
 void regist_base::SetTargetPointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
-    this->target_point_cloud_.swap(point_cloud);
+	this->target_point_cloud_.swap(point_cloud);
 }
 
 /***
@@ -69,10 +69,10 @@ void regist_base::SetTargetPointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& poi
  * @return {*}
  */
 void regist_base::SetTargetPointCloudCopy(const pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
-    this->target_point_cloud_.resize(point_cloud.size());
-    for (size_t i = 0; i < point_cloud.size(); i++) {
-        this->target_point_cloud_[i] = point_cloud[i];
-    }
+	this->target_point_cloud_.resize(point_cloud.size());
+	for (size_t i = 0; i < point_cloud.size(); i++) {
+		this->target_point_cloud_[i] = point_cloud[i];
+	}
 }
 
 /***
@@ -81,7 +81,7 @@ void regist_base::SetTargetPointCloudCopy(const pcl::PointCloud<pcl::PointXYZRGB
  * @return {Matrix4f} tranformation_matrix_
  */
 Eigen::Matrix4f regist_base::GetMotionVector() const {
-    return this->tranformation_matrix_;
+	return this->tranformation_matrix_;
 }
 
 /***
@@ -90,7 +90,7 @@ Eigen::Matrix4f regist_base::GetMotionVector() const {
  * @return {*}
  */
 void regist_base::GetSourcePointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
-    point_cloud.swap(this->source_point_cloud_);
+	point_cloud.swap(this->source_point_cloud_);
 }
 
 /***
@@ -99,10 +99,10 @@ void regist_base::GetSourcePointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& poi
  * @return {*}
  */
 void regist_base::GetSourcePointCloudCopy(pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) const {
-    point_cloud.resize(this->source_point_cloud_.size());
-    for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
-        point_cloud[i] = this->source_point_cloud_[i];
-    }
+	point_cloud.resize(this->source_point_cloud_.size());
+	for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
+		point_cloud[i] = this->source_point_cloud_[i];
+	}
 }
 
 /***
@@ -111,7 +111,7 @@ void regist_base::GetSourcePointCloudCopy(pcl::PointCloud<pcl::PointXYZRGB>& poi
  * @return {*}
  */
 void regist_base::GetTargetPointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) {
-    point_cloud.swap(this->target_point_cloud_);
+	point_cloud.swap(this->target_point_cloud_);
 }
 
 /***
@@ -120,10 +120,10 @@ void regist_base::GetTargetPointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& poi
  * @return {*}
  */
 void regist_base::GetTargetPointCloudCopy(pcl::PointCloud<pcl::PointXYZRGB>& point_cloud) const {
-    point_cloud.resize(this->target_point_cloud_.size());
-    for (size_t i = 0; i < this->target_point_cloud_.size(); i++) {
-        point_cloud[i] = this->target_point_cloud_[i];
-    }
+	point_cloud.resize(this->target_point_cloud_.size());
+	for (size_t i = 0; i < this->target_point_cloud_.size(); i++) {
+		point_cloud[i] = this->target_point_cloud_[i];
+	}
 }
 
 /***
@@ -132,7 +132,7 @@ void regist_base::GetTargetPointCloudCopy(pcl::PointCloud<pcl::PointXYZRGB>& poi
  * @return {size_t}
  */
 size_t regist_base::GetSourcePointCloudSize() const {
-    return this->source_point_cloud_.size();
+	return this->source_point_cloud_.size();
 }
 
 /***
@@ -141,7 +141,28 @@ size_t regist_base::GetSourcePointCloudSize() const {
  * @return {size_t}
  */
 size_t regist_base::GetTargetPointCloudSize() const {
-    return this->target_point_cloud_.size();
+	return this->target_point_cloud_.size();
+}
+
+/***
+ * @description: get result point cloud, using swapping
+ * @param {PointCloud} __point_cloud
+ * @return {*}
+ */
+void regist_base::GetResultPointCloudSwap(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud) {
+	__point_cloud.swap(this->result_point_cloud_);
+}
+
+/***
+ * @description: get result point cloud, using copying
+ * @param {PointCloud} __point_cloud
+ * @return {*}
+ */
+void regist_base::GetResultPointCloudCopy(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud) const {
+	__point_cloud.resize(this->result_point_cloud_.size());
+	for (size_t i = 0; i < this->result_point_cloud_.size(); i++) {
+		__point_cloud[i] = this->result_point_cloud_[i];
+	}
 }
 
 /***
@@ -150,32 +171,32 @@ size_t regist_base::GetTargetPointCloudSize() const {
  * @return {*}
  */
 void regist_base::GolbalCentroidAlignment() {
-    // cloud is empty, throw an error
-    try {
-        if (this->source_point_cloud_.empty())
-            throw "Source point cloud is empty.";
-        else if (this->target_point_cloud_.empty())
-            throw "Target point cloud is empty.";
-    }
-    catch (const char* error_message) {
-        std::cerr << "Point cloud alignment failed. " << error_message << std::endl;
-        return;
-    }
+	// cloud is empty, throw an error
+	try {
+		if (this->source_point_cloud_.empty())
+			throw "Source point cloud is empty.";
+		else if (this->target_point_cloud_.empty())
+			throw "Target point cloud is empty.";
+	}
+	catch (const char* error_message) {
+		std::cerr << "Point cloud alignment failed. " << error_message << std::endl;
+		return;
+	}
 
-    pcl::PointXYZ source_centroid(0.0f, 0.0f, 0.0f);
-    pcl::PointXYZ target_centroid(0.0f, 0.0f, 0.0f);
-    for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
-        pco::operation::PointAddCopy(source_centroid, this->source_point_cloud_[i]);
-    }
-    for (size_t i = 0; i < this->target_point_cloud_.size(); i++) {
-        pco::operation::PointAddCopy(target_centroid, this->target_point_cloud_[i]);
-    }
+	pcl::PointXYZ source_centroid(0.0f, 0.0f, 0.0f);
+	pcl::PointXYZ target_centroid(0.0f, 0.0f, 0.0f);
+	for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
+		pco::operation::PointAddCopy(source_centroid, this->source_point_cloud_[i]);
+	}
+	for (size_t i = 0; i < this->target_point_cloud_.size(); i++) {
+		pco::operation::PointAddCopy(target_centroid, this->target_point_cloud_[i]);
+	}
 
-    // translate point cloud
-    pco::operation::PointCloudAdd(this->result_point_cloud_, operation::PointSubAssign(target_centroid, source_centroid));
+	// translate point cloud
+	pco::operation::PointCloudAdd(this->result_point_cloud_, operation::PointSubAssign(target_centroid, source_centroid));
 
-    // record matrix
-    pco::operation::MatrixAddCopy(this->tranformation_matrix_, operation::PointSubAssign(target_centroid, source_centroid));
+	// record matrix
+	pco::operation::MatrixAddCopy(this->tranformation_matrix_, operation::PointSubAssign(target_centroid, source_centroid));
 }
 
 /***
@@ -184,34 +205,34 @@ void regist_base::GolbalCentroidAlignment() {
  * @return {*}
  */
 void regist_base::LocalCentroidAlignment() {
-    // cloud is empty, throw an error
-    try {
-        if (this->source_point_cloud_.empty())
-            throw "Source point cloud is empty.";
-        else if (this->target_point_cloud_.empty())
-            throw "Target point cloud is empty.";
-    }
-    catch (const char* error_message) {
-        std::cerr << "Point cloud alignment failed. " << error_message << std::endl;
-        return;
-    }
+	// cloud is empty, throw an error
+	try {
+		if (this->source_point_cloud_.empty())
+			throw "Source point cloud is empty.";
+		else if (this->target_point_cloud_.empty())
+			throw "Target point cloud is empty.";
+	}
+	catch (const char* error_message) {
+		std::cerr << "Point cloud alignment failed. " << error_message << std::endl;
+		return;
+	}
 
-    // local alignment, using nearest neighbor search.
-    pcl::search::KdTree<pcl::PointXYZRGB> tree;
-    tree.setInputCloud(this->target_point_cloud_.makeShared());
+	// local alignment, using nearest neighbor search.
+	pcl::search::KdTree<pcl::PointXYZRGB> tree;
+	tree.setInputCloud(this->target_point_cloud_.makeShared());
 
-    // calculate align vector
-    pcl::PointXYZ align_vector{ 0.0f, 0.0f, 0.0f };
+	// calculate align vector
+	pcl::PointXYZ align_vector{0.0f, 0.0f, 0.0f};
 
-    // k-nn search
-    for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
-        std::vector<int>   index;
-        std::vector<float> distance;
-        tree.nearestKSearch(this->source_point_cloud_[i], 1, index, distance);
-        pco::operation::PointAddCopy(align_vector, pco::operation::PointSubAssign(this->target_point_cloud_[index[0]], this->source_point_cloud_[i]));
-    }
+	// k-nn search
+	for (size_t i = 0; i < this->source_point_cloud_.size(); i++) {
+		std::vector<int>   index;
+		std::vector<float> distance;
+		tree.nearestKSearch(this->source_point_cloud_[i], 1, index, distance);
+		pco::operation::PointAddCopy(align_vector, pco::operation::PointSubAssign(this->target_point_cloud_[index[0]], this->source_point_cloud_[i]));
+	}
 
-    // align and record
-    pco::operation::PointCloudAdd(this->result_point_cloud_, align_vector);
-    pco::operation::MatrixAddCopy(this->tranformation_matrix_, align_vector);
+	// align and record
+	pco::operation::PointCloudAdd(this->result_point_cloud_, align_vector);
+	pco::operation::MatrixAddCopy(this->tranformation_matrix_, align_vector);
 }
