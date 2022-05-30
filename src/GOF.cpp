@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-13 10:58:55
- * @LastEditTime: 2022-05-30 14:58:19
+ * @LastEditTime: 2022-05-30 15:10:34
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -42,11 +42,11 @@ GOF::GOF(const size_t group_of_frames)
  */
 size_t GOF::size() const {
 	try {
-		if (this->frame_patches_.size() == this->motion_vectors_.size()) {
-			return this->frame_patches_.size();
+		if (this->frame_number_ > 0 && this->frame_number_ < this->kGroupOfFrames) {
+			return this->frame_number_;
 		}
 		else {
-			throw "Unmatching size between frames and matrices.";
+			throw "Illegal frame number.";
 		}
 	}
 	catch (const char* error_message) {
@@ -62,7 +62,7 @@ size_t GOF::size() const {
  */
 size_t GOF::size(const size_t __index) const {
 	try {
-		if (__index < this->frame_patches_.size()) {
+		if (__index < this->kGroupOfFrames) {
 			return this->frame_patches_[__index].size();
 		}
 		else {
@@ -83,7 +83,7 @@ size_t GOF::size(const size_t __index) const {
  */
 pcl::PointXYZRGB& GOF::operator()(const size_t __x, const size_t __y) {
 	try {
-		if (__x < this->frame_patches_.size()) {
+		if (__x < this->kGroupOfFrames) {
 			if (__y < this->frame_patches_[__x].size()) {
 				return this->frame_patches_[__x][__y];
 			}
@@ -109,7 +109,7 @@ pcl::PointXYZRGB& GOF::operator()(const size_t __x, const size_t __y) {
  */
 const pcl::PointXYZRGB& GOF::operator()(const size_t __x, const size_t __y) const {
 	try {
-		if (__x < this->frame_patches_.size()) {
+		if (__x < this->kGroupOfFrames) {
 			if (__y < this->frame_patches_[__x].size()) {
 				return this->frame_patches_[__x][__y];
 			}
@@ -136,12 +136,11 @@ const pcl::PointXYZRGB& GOF::operator()(const size_t __x, const size_t __y) cons
 void GOF::AddPatch(const pcl::PointCloud<pcl::PointXYZRGB>& __patch, const Eigen::Matrix4f& __matrix) {
 	try {
 		// frame_patches_'s size must be less than kGroupOfFrames
-		if (this->frame_patches_.size() < this->kGroupOfFrames) {
+		if (this->frame_number_ < this->kGroupOfFrames) {
 			// add a patch
-			this->frame_patches_.emplace_back(pcl::PointCloud<pcl::PointXYZRGB>());
-			this->frame_patches_[this->frame_patches_.size() - 1].resize(__patch.size());
+			this->frame_patches_[this->frame_number_].resize(__patch.size());
 			for (size_t i = 0; i < __patch.size(); i++) {
-				this->frame_patches_[this->frame_patches_.size() - 1][i] = __patch[i];
+				this->frame_patches_[this->frame_number_][i] = __patch[i];
 				// update range of coordinates
 				this->min_x_ = this->min_x_ < __patch[i].x ? this->min_x_ : __patch[i].x;
 				this->max_x_ = this->max_x_ > __patch[i].x ? this->max_x_ : __patch[i].x;
@@ -151,11 +150,11 @@ void GOF::AddPatch(const pcl::PointCloud<pcl::PointXYZRGB>& __patch, const Eigen
 				this->max_z_ = this->max_z_ > __patch[i].z ? this->max_z_ : __patch[i].z;
 			}
 			// add transformation matrix
-			if (this->frame_patches_.size() == 1) {
-				this->motion_vectors_.emplace_back(Eigen::Matrix4f::Identity());
+			if (this->frame_number_ == 0) {
+				this->motion_vectors_[this->frame_number_] = Eigen::Matrix4f::Identity();
 			}
 			else {
-				this->motion_vectors_.emplace_back(__matrix);
+				this->motion_vectors_[this->frame_number_] = __matrix;
 			}
 		}
 		else {
@@ -176,7 +175,7 @@ void GOF::AddPatch(const pcl::PointCloud<pcl::PointXYZRGB>& __patch, const Eigen
  */
 void GOF::GetPatch(pcl::PointCloud<pcl::PointXYZRGB>& __patch, Eigen::Matrix4f& __matrix, const size_t __index) const {
 	try {
-		if (__index < this->frame_patches_.size()) {
+		if (__index < this->kGroupOfFrames) {
 			__patch.resize(this->frame_patches_[__index].size());
 			for (size_t i = 0; i < this->frame_patches_[__index].size(); i++) {
 				__patch[i] = this->frame_patches_[__index][i];
