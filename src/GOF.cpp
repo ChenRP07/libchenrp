@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-13 10:58:55
- * @LastEditTime: 2022-05-30 15:10:34
+ * @LastEditTime: 2022-05-31 14:21:53
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -42,10 +42,11 @@ GOF::GOF(const size_t group_of_frames)
  */
 size_t GOF::size() const {
 	try {
-		if (this->frame_number_ > 0 && this->frame_number_ < this->kGroupOfFrames) {
+		if (this->frame_number_ > 0 && this->frame_number_ <= this->kGroupOfFrames) {
 			return this->frame_number_;
 		}
 		else {
+			printf("%lu\n", this->frame_number_);
 			throw "Illegal frame number.";
 		}
 	}
@@ -156,6 +157,7 @@ void GOF::AddPatch(const pcl::PointCloud<pcl::PointXYZRGB>& __patch, const Eigen
 			else {
 				this->motion_vectors_[this->frame_number_] = __matrix;
 			}
+			this->frame_number_++;
 		}
 		else {
 			throw "Out of GOF size limitation.";

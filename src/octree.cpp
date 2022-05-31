@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-05-27 20:36:23
+ * @LastEditTime: 2022-05-31 15:08:15
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
@@ -67,7 +67,6 @@ void Octree::SetFrames(const GOF& __gof) {
 
 	// recursively add tree nodes
 	this->AddTreeNode(__gof, __octree_points, 0, this->tree_resolution_, this->tree_center_);
-
 	// set transformation matrices
 	__gof.GetMatrices(this->motion_vectors_);
 
@@ -88,11 +87,11 @@ void Octree::SetFrames(const GOF& __gof) {
 		// allocate memory for tree_merge_leave_
 		this->tree_merge_leave_.resize(__leave_number);
 
-		// using XOR to generate merged leave
+		// using OR to generate merged leave
 		for (size_t i = 0; i < __leave_number; i++) {
 			uint8_t __merge_leaf_value = 0x00;
 			for (size_t j = 0; j < this->tree_leave_.size(); j++) {
-				__merge_leaf_value ^= this->tree_leave_[j][i];
+				__merge_leaf_value |= this->tree_leave_[j][i];
 			}
 
 			// count point number
@@ -105,6 +104,10 @@ void Octree::SetFrames(const GOF& __gof) {
 		std::cerr << "Fatal error in octree constructing : " << error_message << std::endl;
 		std::exit(1);
 	}
+
+	// for (size_t i = 0; i < __leave_number; i++) {
+	// 	printf("%02x ", this->tree_merge_leave_[i]);
+	// }
 
 	// calculate bit_map_
 	for (size_t i = 0; i < __leave_number; i++) {
@@ -124,7 +127,7 @@ void Octree::SetFrames(const GOF& __gof) {
  */
 bool Octree::AddTreeNode(const GOF& __gof, std::vector<std::vector<size_t>>& __node_points, size_t __height, float __resolution, pcl::PointXYZ __center) {
 	// init value for a node 0000 0000
-	uint8_t __node_value = 0x00;
+	// uint8_t __node_value = 0x00;
 
 	// if this node is empty, return a 0
 	if (pco::operation::AreFramesEmpty(__node_points)) {
@@ -152,6 +155,7 @@ bool Octree::AddTreeNode(const GOF& __gof, std::vector<std::vector<size_t>>& __n
 				// pos must in {0, 1, 2, 3, 4, 5, 6, 7}
 				try {
 					if (pos <= 7 && pos >= 0) {
+						// std::cout << pos << " " << i << " " << j << std::endl;
 						__subnodes_value[pos][i].push_back(__node_points[i][j]);
 					}
 					else {
@@ -262,7 +266,7 @@ bool Octree::AddTreeNode(const GOF& __gof, std::vector<std::vector<size_t>>& __n
 			this->tree_leave_[i].emplace_back(__leaf_value);
 		}
 
-		// this node has a least one point
+		// this node has at least one point
 		return true;
 	}
 }
