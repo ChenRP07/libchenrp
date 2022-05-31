@@ -35,5 +35,6 @@ build/*
 test/*
 debug/*
 release/*
+dll/*
 .*
 !.gitignore
