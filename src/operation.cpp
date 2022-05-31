@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-29 10:42:41
- * @LastEditTime: 2022-05-30 18:34:46
+ * @LastEditTime: 2022-05-31 16:07:09
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -250,7 +250,7 @@ void operation::MatrixAddCopy(Eigen::Matrix4f& __matrix, const pcl::PointXYZRGB&
  */
 void operation::PointCloudMul(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud, const Eigen::Matrix4f& __matrix) {
 	for (size_t i = 0; i < __point_cloud.size(); i++) {
-		pcl::PointXYZRGB temp;
+		pcl::PointXYZRGB temp{__point_cloud[i]};
 		temp.x           = __point_cloud[i].x * __matrix(0, 0) + __point_cloud[i].y * __matrix(0, 1) + __point_cloud[i].z * __matrix(0, 2) + __matrix(0, 3);
 		temp.y           = __point_cloud[i].x * __matrix(1, 0) + __point_cloud[i].y * __matrix(1, 1) + __point_cloud[i].z * __matrix(1, 2) + __matrix(1, 3);
 		temp.z           = __point_cloud[i].x * __matrix(2, 0) + __point_cloud[i].y * __matrix(2, 1) + __point_cloud[i].z * __matrix(2, 2) + __matrix(2, 3);
@@ -267,7 +267,7 @@ void operation::PointCloudMul(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud, 
  */
 void operation::PointCloudMulAdd(pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud_x, const pcl::PointCloud<pcl::PointXYZRGB>& __point_cloud_y, const Eigen::Matrix4f& __matrix) {
 	for (size_t i = 0; i < __point_cloud_y.size(); i++) {
-		pcl::PointXYZRGB temp;
+		pcl::PointXYZRGB temp{__point_cloud_y[i]};
 		temp.x = __point_cloud_y[i].x * __matrix(0, 0) + __point_cloud_y[i].y * __matrix(0, 1) + __point_cloud_y[i].z * __matrix(0, 2) + __matrix(0, 3);
 		temp.y = __point_cloud_y[i].x * __matrix(1, 0) + __point_cloud_y[i].y * __matrix(1, 1) + __point_cloud_y[i].z * __matrix(1, 2) + __matrix(1, 3);
 		temp.z = __point_cloud_y[i].x * __matrix(2, 0) + __point_cloud_y[i].y * __matrix(2, 1) + __point_cloud_y[i].z * __matrix(2, 2) + __matrix(2, 3);

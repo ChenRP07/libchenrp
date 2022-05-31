@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-04-28 17:00:32
- * @LastEditTime: 2022-05-30 17:54:22
+ * @LastEditTime: 2022-05-31 15:34:56
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -51,7 +51,6 @@ bool ICP::align(const int centroid_alignment_type) {
 	// Iterative Closest Point Algorithm
 	pcl::IterativeClosestPoint<pcl::PointXYZRGB, pcl::PointXYZRGB> icp;
 
-	pcl::io::savePLYFile("15.ply", this->result_point_cloud_);
 	// set point cloud
 	icp.setInputSource(this->result_point_cloud_.makeShared());
 	icp.setInputTarget(this->target_point_cloud_.makeShared());
