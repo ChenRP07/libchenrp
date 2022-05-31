@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-05-31 15:08:15
+ * @LastEditTime: 2022-05-31 16:35:43
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
@@ -59,9 +59,9 @@ void Octree::SetFrames(const GOF& __gof) {
 	// use a index vector to indicate if there is point in a octree node.
 	std::vector<std::vector<size_t>> __octree_points(__gof.size());
 	for (size_t i = 0; i < __octree_points.size(); i++) {
-		__octree_points[i].resize(__gof.size(i));
-		for (size_t j = 0; j < __octree_points[i].size(); j++) {
-			__octree_points[i][j] = j;
+		//__octree_points[i].resize(__gof.size(i));
+		for (size_t j = 0; j < __gof.size(i); j++) {
+			__octree_points[i].emplace_back(j);
 		}
 	}
 
@@ -69,7 +69,6 @@ void Octree::SetFrames(const GOF& __gof) {
 	this->AddTreeNode(__gof, __octree_points, 0, this->tree_resolution_, this->tree_center_);
 	// set transformation matrices
 	__gof.GetMatrices(this->motion_vectors_);
-
 	// calculate bit_map_
 	// count the leaf number and point number
 	size_t __leave_number = this->tree_leave_[0].size();
@@ -104,7 +103,6 @@ void Octree::SetFrames(const GOF& __gof) {
 		std::cerr << "Fatal error in octree constructing : " << error_message << std::endl;
 		std::exit(1);
 	}
-
 	// for (size_t i = 0; i < __leave_number; i++) {
 	// 	printf("%02x ", this->tree_merge_leave_[i]);
 	// }
@@ -300,6 +298,9 @@ void Octree::ColorCompensation() {
 					__index_i++;
 				}
 				__index_p++;
+			}
+			else if (this->bit_map_[0][k] == '1') {
+				__index_i++;
 			}
 		}
 	}
