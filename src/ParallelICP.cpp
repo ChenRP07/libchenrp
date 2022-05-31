@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-07 15:04:27
- * @LastEditTime: 2022-05-30 18:35:45
+ * @LastEditTime: 2022-05-31 16:41:33
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -129,30 +129,30 @@ void ParallelICP::ThreadProcess() {
 void ParallelICP::ParallelAlign() {
 	// global icp
 	// collect whole i-frame
-	pcl::PointCloud<pcl::PointXYZRGB> __i_frame;
-	for (size_t i = 0; i < this->source_patches_.size(); i++) {
-		for (size_t j = 0; j < this->source_patches_[i].size(); j++) {
-			__i_frame.emplace_back(this->source_patches_[i][j]);
-		}
-	}
-	size_t i_size = __i_frame.size();
+	// pcl::PointCloud<pcl::PointXYZRGB> __i_frame;
+	// for (size_t i = 0; i < this->source_patches_.size(); i++) {
+	// 	for (size_t j = 0; j < this->source_patches_[i].size(); j++) {
+	// 		__i_frame.emplace_back(this->source_patches_[i][j]);
+	// 	}
+	// }
+	// size_t i_size = __i_frame.size();
 
-	// do icp
-	ICP __global(this->kCorrespondenceThreshold, this->kIterationThreshold, this->kMSEThreshold, this->kTransformationThreshold);
-	__global.SetTargetPointCloudSwap(__i_frame);
-	__global.SetSourcePointCloudSwap(this->target_point_cloud_);
+	// // do icp
+	// ICP __global(this->kCorrespondenceThreshold, this->kIterationThreshold, this->kMSEThreshold, this->kTransformationThreshold);
+	// __global.SetTargetPointCloudSwap(__i_frame);
+	// __global.SetSourcePointCloudSwap(this->target_point_cloud_);
 
-	bool converge        = __global.align();
-	this->global_vector_ = __global.GetMotionVector();
-	float error          = __global.GetMSE();
+	// bool converge        = __global.align();
+	// this->global_vector_ = __global.GetMotionVector();
+	// float error          = __global.GetMSE();
 
-	// get result
-	__global.GetResultPointCloudSwap(this->target_point_cloud_);
-	std::cout << "Global alignment";
-	if (!converge) {
-		std::cout << " not ";
-	}
-	std::cout << "converged, MSE is " << error << ", Target size is " << i_size << ", Source size is " << this->target_point_cloud_.size() << std::endl;
+	// // get result
+	// __global.GetResultPointCloudSwap(this->target_point_cloud_);
+	// std::cout << "Global alignment";
+	// if (!converge) {
+	// 	std::cout << " not";
+	// }
+	// std::cout << " converged, MSE is " << error << ", Target size is " << i_size << ", Source size is " << this->target_point_cloud_.size() << std::endl;
 
 	// add task to pool
 	for (size_t i = 0; i < this->source_patches_.size(); i++) {
