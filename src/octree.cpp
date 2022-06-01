@@ -1,13 +1,15 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-05-31 16:35:43
+ * @LastEditTime: 2022-06-01 20:59:55
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
 
 #include "octree.h"
 using namespace pco::octree;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-result"
 
 Octree::Octree(const size_t __gof, const float __resolution) : kGroupOfFrames{__gof}, kMinResolution{__resolution} {
 	try {
@@ -305,3 +307,69 @@ void Octree::ColorCompensation() {
 		}
 	}
 }
+
+void Octree::OutputTree(std::string& __tree_data) {
+	try {
+		for (auto& i : this->tree_nodes_) {
+			for (auto& j : i) {
+				__tree_data += static_cast<char>(j);
+			}
+		}
+
+		for (auto& i : this->tree_merge_leave_) {
+			__tree_data += static_cast<char>(i);
+		}
+
+		if (__tree_data.empty()) {
+			throw "No data in octree.";
+		}
+	}
+	// open failed
+	catch (const char* error_message) {
+		std::cerr << "Fatal error : " << error_message << std::endl;
+		std::exit(1);
+	}
+}
+
+void Octree::OutputPatches(std::vector<std::string>& __bit_maps, std::vector<std::vector<uint8_t>>& __colors) {
+	try {
+		__bit_maps.clear();
+		__bit_maps.resize(this->kGroupOfFrames, "");
+		__colors.clear();
+		__colors.resize(this->kGroupOfFrames, std::vector<uint8_t>());
+		// for each patch
+		for (size_t i = 0; i < this->kGroupOfFrames; i++) {
+			// bit-map
+			std::string temp = this->bit_map_[i];
+			while (temp.size() % 8 != 0)
+				temp += '0';
+			for (size_t j = 0; j < temp.size() / 8; j++) {
+				char temp_c = 0x00;
+				for (size_t k = 0; k < 8; k++) {
+					temp_c <<= 1;
+					if (j * 8 + k >= temp.size()) {
+						throw "Out of bit_map_ range.";
+					}
+					if (temp[j * 8 + k] != '1' && temp[j * 8 + k] != '0') {
+						throw "Wrong bit_map_ value.";
+					}
+					temp_c |= (temp[j * 8 + k] - '0');
+				}
+				__bit_maps[i] += temp_c;
+			}
+
+			// colors
+			for (size_t j = 0; j < this->tree_colors_[i].size(); j++) {
+				__colors[i].emplace_back(this->tree_colors_[i][j].r_);
+				__colors[i].emplace_back(this->tree_colors_[i][j].g_);
+				__colors[i].emplace_back(this->tree_colors_[i][j].b_);
+			}
+		}
+	}
+	catch (const char* error_message) {
+		std::cerr << "Fatal error : " << error_message << std::endl;
+		std::exit(1);
+	}
+}
+
+#pragma GCC diagnostic pop

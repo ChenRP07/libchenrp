@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:35
- * @LastEditTime: 2022-05-31 16:44:47
+ * @LastEditTime: 2022-06-01 19:03:35
  * @LastEditors: ChenRP07
  * @Description: C++ header for class GOF and class octree.
  */
@@ -116,8 +116,8 @@ namespace octree {
 		bool AddTreeNode(const GOF&, std::vector<std::vector<size_t>>&, size_t, float, pcl::PointXYZ);
 		void SetFrames(const GOF&);
 		void ColorCompensation();
-		void OutputTree();
-		void OutputPatches();
+		void OutputTree(std::string& __tree_data);
+		void OutputPatches(std::vector<std::string>& __bit_maps, std::vector<std::vector<uint8_t>>& __colors);
 	};
 
 }  // namespace octree
