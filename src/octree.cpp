@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-06-01 20:59:55
+ * @LastEditTime: 2022-06-02 15:35:46
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
@@ -372,4 +372,7 @@ void Octree::OutputPatches(std::vector<std::string>& __bit_maps, std::vector<std
 	}
 }
 
+pcl::PointXYZ Octree::GetCenter() const {
+	return this->tree_center_;
+}
 #pragma GCC diagnostic pop
