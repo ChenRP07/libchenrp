@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:35
- * @LastEditTime: 2022-06-02 15:34:59
+ * @LastEditTime: 2022-06-02 15:45:15
  * @LastEditors: ChenRP07
  * @Description: C++ header for class GOF and class octree.
  */
@@ -105,7 +105,7 @@ namespace octree {
 		const size_t  kGroupOfFrames;
 		const float   kMinResolution;
 		pcl::PointXYZ tree_center_;
-		int           tree_height_;
+		size_t        tree_height_;
 		float         tree_resolution_;
 
 		// this controlling parameter is activated if necessary
@@ -117,6 +117,7 @@ namespace octree {
 		void          SetFrames(const GOF&);
 		void          ColorCompensation();
 		pcl::PointXYZ GetCenter() const;
+		size_t        GetHeight() const;
 		void          OutputTree(std::string& __tree_data);
 		void          OutputPatches(std::vector<std::string>& __bit_maps, std::vector<std::vector<uint8_t>>& __colors);
 	};
