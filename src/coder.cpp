@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-19 15:33:02
- * @LastEditTime: 2022-06-02 16:50:29
+ * @LastEditTime: 2022-06-02 16:59:19
  * @LastEditors: ChenRP07
  * @Description: C++ implementation source code for coder.h
  */
@@ -231,7 +231,7 @@ void coder::TurboJpegDecoder(std::vector<std::vector<uint8_t>>& __image, FILE* _
 	// read compressed size
 	long unsigned int __jpeg_size = 0;
 	fread(&__jpeg_size, sizeof(long unsigned int), 1, __file_pointer);
-	std::cout << "JPEG size : " << __jpeg_size << std::endl;
+	// std::cout << "JPEG size : " << __jpeg_size << std::endl;
 
 	// read data
 	unsigned char __compressed_image[__jpeg_size];
