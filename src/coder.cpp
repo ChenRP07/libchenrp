@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-19 15:33:02
- * @LastEditTime: 2022-06-02 16:59:19
+ * @LastEditTime: 2022-06-02 17:11:33
  * @LastEditors: ChenRP07
  * @Description: C++ implementation source code for coder.h
  */
@@ -316,8 +316,8 @@ void coder::ZstdEncoder(const std::string& __source, FILE* __file, const int kCo
 
 		// write compressed string size to file
 		fwrite(&kCompressedSize, sizeof(size_t), 1, __file);
-		printf("%lu\n", kCompressedSize);
-		// write compressed string to file
+		// printf("%lu\n", kCompressedSize);
+		//  write compressed string to file
 		fwrite(__destination.c_str(), sizeof(char), __destination.size(), __file);
 
 		if (ferror(__file)) {
