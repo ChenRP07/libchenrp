@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-06-02 15:44:25
+ * @LastEditTime: 2022-06-02 16:12:09
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
@@ -378,5 +378,20 @@ pcl::PointXYZ Octree::GetCenter() const {
 
 size_t Octree::GetHeight() const {
 	return this->tree_height_;
+}
+
+Eigen::Matrix4f Octree::GetMotionVector(const size_t __index) const {
+	try {
+		if (__index >= 0 && __index < this->kGroupOfFrames) {
+			return this->motion_vectors_[__index];
+		}
+		else {
+			throw "Out of range.";
+		}
+	}
+	catch (const char* error_message) {
+		std::cerr << "Fatal error in getting motion vectors : " << error_message << std::endl;
+		std::exit(1);
+	}
 }
 #pragma GCC diagnostic pop
