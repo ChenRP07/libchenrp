@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-06-02 16:12:09
+ * @LastEditTime: 2022-06-05 13:33:07
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
@@ -393,5 +393,9 @@ Eigen::Matrix4f Octree::GetMotionVector(const size_t __index) const {
 		std::cerr << "Fatal error in getting motion vectors : " << error_message << std::endl;
 		std::exit(1);
 	}
+}
+
+size_t Octree::GetMapSize(size_t __index) const {
+	return this->bit_map_[__index].size();
 }
 #pragma GCC diagnostic pop

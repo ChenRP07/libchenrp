@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:35
- * @LastEditTime: 2022-06-02 16:09:33
+ * @LastEditTime: 2022-06-05 13:32:20
  * @LastEditors: ChenRP07
  * @Description: C++ header for class GOF and class octree.
  */
@@ -122,6 +122,7 @@ namespace octree {
 		size_t          GetHeight() const;
 		void            OutputTree(std::string& __tree_data);
 		void            OutputPatches(std::vector<std::string>& __bit_maps, std::vector<std::vector<uint8_t>>& __colors);
+		size_t          GetMapSize(size_t __index) const;
 	};
 
 }  // namespace octree
