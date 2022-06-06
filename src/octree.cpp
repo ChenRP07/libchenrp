@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-06-05 13:33:07
+ * @LastEditTime: 2022-06-06 14:56:25
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
@@ -316,9 +316,9 @@ void Octree::OutputTree(std::string& __tree_data) {
 			}
 		}
 
-		for (auto& i : this->tree_merge_leave_) {
-			__tree_data += static_cast<char>(i);
-		}
+		// for (auto& i : this->tree_merge_leave_) {
+		// __tree_data += static_cast<char>(i);
+		// }
 
 		if (__tree_data.empty()) {
 			throw "No data in octree.";
@@ -340,22 +340,26 @@ void Octree::OutputPatches(std::vector<std::string>& __bit_maps, std::vector<std
 		// for each patch
 		for (size_t i = 0; i < this->kGroupOfFrames; i++) {
 			// bit-map
-			std::string temp = this->bit_map_[i];
-			while (temp.size() % 8 != 0)
-				temp += '0';
-			for (size_t j = 0; j < temp.size() / 8; j++) {
-				char temp_c = 0x00;
-				for (size_t k = 0; k < 8; k++) {
-					temp_c <<= 1;
-					if (j * 8 + k >= temp.size()) {
-						throw "Out of bit_map_ range.";
-					}
-					if (temp[j * 8 + k] != '1' && temp[j * 8 + k] != '0') {
-						throw "Wrong bit_map_ value.";
-					}
-					temp_c |= (temp[j * 8 + k] - '0');
-				}
-				__bit_maps[i] += temp_c;
+			// std::string temp = this->bit_map_[i];
+			// while (temp.size() % 8 != 0)
+			// 	temp += '0';
+			// for (size_t j = 0; j < temp.size() / 8; j++) {
+			// 	char temp_c = 0x00;
+			// 	for (size_t k = 0; k < 8; k++) {
+			// 		temp_c <<= 1;
+			// 		if (j * 8 + k >= temp.size()) {
+			// 			throw "Out of bit_map_ range.";
+			// 		}
+			// 		if (temp[j * 8 + k] != '1' && temp[j * 8 + k] != '0') {
+			// 			throw "Wrong bit_map_ value.";
+			// 		}
+			// 		temp_c |= (temp[j * 8 + k] - '0');
+			// 	}
+			// 	__bit_maps[i] += temp_c;
+			// }
+
+			for (size_t j = 0; j < this->tree_leave_[i].size(); j++) {
+				__bit_maps[i] += static_cast<char>(tree_leave_[i][j]);
 			}
 
 			// colors
