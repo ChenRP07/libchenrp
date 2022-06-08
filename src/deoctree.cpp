@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-06-06 15:54:35
- * @LastEditTime: 2022-06-08 19:55:44
+ * @LastEditTime: 2022-06-08 20:00:00
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -72,7 +72,7 @@ void octree::DeOctree::SetTreeNodes(std::string& __nodes) {
 				// for each 1 bit
 				for (size_t k = 0; k < pos.size(); k++) {
 					// calculate the subnode center and add it to next layer
-					pcl::PointXYZ subnode_center = operation::SubnodeCenter(this->node_centers_[i][j], pos[i], Res / 2);
+					pcl::PointXYZ subnode_center = operation::SubnodeCenter(this->node_centers_[i][j], pos[k], Res / 2);
 					this->node_centers_[i + 1].emplace_back(subnode_center);
 				}
 			}
