@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:40
- * @LastEditTime: 2022-06-06 14:56:25
+ * @LastEditTime: 2022-06-06 15:34:17
  * @LastEditors: ChenRP07
  * @Description: C++ implement for class octree
  */
@@ -402,4 +402,5 @@ Eigen::Matrix4f Octree::GetMotionVector(const size_t __index) const {
 size_t Octree::GetMapSize(size_t __index) const {
 	return this->bit_map_[__index].size();
 }
+
 #pragma GCC diagnostic pop

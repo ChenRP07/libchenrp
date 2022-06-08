@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:35
- * @LastEditTime: 2022-06-05 13:32:20
+ * @LastEditTime: 2022-06-08 09:24:08
  * @LastEditors: ChenRP07
  * @Description: C++ header for class GOF and class octree.
  */
@@ -58,6 +58,8 @@ namespace operation {
 	extern uint8_t       BoolSetToUChar(const std::vector<bool>&);
 	extern size_t        NodePointCount(uint8_t);
 	extern void          SetBitMap(uint8_t, uint8_t, std::string&);
+	extern void          NodePointPosition(uint8_t __node, std::vector<size_t>& __pos);
+	extern void          SubnodePoint(const pcl::PointXYZ& __center, const size_t __pos, pcl::PointXYZ& __point);
 }  // namespace operation
 
 namespace octree {
@@ -123,6 +125,25 @@ namespace octree {
 		void            OutputTree(std::string& __tree_data);
 		void            OutputPatches(std::vector<std::string>& __bit_maps, std::vector<std::vector<uint8_t>>& __colors);
 		size_t          GetMapSize(size_t __index) const;
+	};
+
+	class DeOctree {
+	  private:
+		std::vector<std::vector<uint8_t>>       tree_nodes_;
+		std::vector<std::vector<pcl::PointXYZ>> node_centers_;
+
+		const size_t  kGroupOfFrames;
+		const float   kMinResolution;
+		pcl::PointXYZ tree_center_;
+		size_t        tree_height_;
+		float         tree_resolution_;
+
+	  public:
+		DeOctree(const size_t __gof, const float __resolution = 2.0f);
+		void SetCenter(pcl::PointXYZ& __center);
+		void SetHieght(size_t __height);
+		void SetTreeNodes(std::string& __nodes);
+		void GetPatch(std::string& __nodes, std::vector<pcl::PointXYZ>& __points);
 	};
 
 }  // namespace octree

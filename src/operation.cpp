@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-16 16:41:28
- * @LastEditTime: 2022-05-31 16:31:43
+ * @LastEditTime: 2022-06-08 10:07:39
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -130,6 +130,54 @@ void operation::SetBitMap(uint8_t __node_value, uint8_t __merge_node_value, std:
 	}
 	catch (const char* error_message) {
 		std::cerr << "Fatal error : " << error_message << std::endl;
+		std::exit(1);
+	}
+}
+
+/***
+ * @description: from high to low count the 1-bit position, e.g. 11001101 -> 0 1 4 5 7
+ * @param {uint8_t} __node
+ * @param {vector<size_t>} __pos
+ * @return {*}
+ */
+void operation::NodePointPosition(uint8_t __node, std::vector<size_t>& __pos) {
+	__pos.clear();
+	for (size_t i = 0; i < 8; i++) {
+		if ((__node & 0x80) != 0) {
+			__pos.emplace_back(i);
+		}
+		__node <<= 1;
+	}
+}
+
+void operation::SubnodePoint(const pcl::PointXYZ& __center, const size_t __pos, pcl::PointXYZ& __point) {
+	try {
+		__point.x = __center.x, __point.y = __center.y, __point.z = __center.z;
+		/*
+		    for a cube, eight point are
+		      6————4
+		     /|   /|
+		    2—+——0 |
+		    | 7——+-5
+		    |/   |/
+		    3————1
+		    7 : is the center location, each edge is 1.0f
+		    xyz : 000 ? 111 (x/y/z > center ? 0 : 1)
+		*/
+		switch (__pos) {
+			case 0: __point.x += 1.0f, __point.y += 1.0f, __point.z += 1.0f; break;
+			case 1: __point.x += 1.0f, __point.y += 1.0f; break;
+			case 2: __point.x += 1.0f, __point.z += 1.0f; break;
+			case 3: __point.x += 1.0f; break;
+			case 4: __point.y += 1.0f, __point.z += 1.0f; break;
+			case 5: __point.y += 1.0f; break;
+			case 6: __point.z += 1.0f; break;
+			case 7: break;
+			default: throw "Position must be 0-7.";
+		}
+	}
+	catch (const char* error_message) {
+		std::cerr << "Fatal error in function SubnodePoint() : " << error_message << std::endl;
 		std::exit(1);
 	}
 }
