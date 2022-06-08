@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-16 16:41:28
- * @LastEditTime: 2022-06-08 10:07:39
+ * @LastEditTime: 2022-06-08 20:17:00
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -180,4 +180,72 @@ void operation::SubnodePoint(const pcl::PointXYZ& __center, const size_t __pos, 
 		std::cerr << "Fatal error in function SubnodePoint() : " << error_message << std::endl;
 		std::exit(1);
 	}
+}
+
+float operation::PSNRGeo(const pcl::PointCloud<pcl::PointXYZ>& __x, const pcl::PointCloud<pcl::PointXYZ>& __y) {
+	float maxx = FLT_MIN, maxy = FLT_MIN, maxz = FLT_MIN;
+	float minx = FLT_MAX, miny = FLT_MAX, minz = FLT_MAX;
+	for (auto& i : __x) {
+		if (i.x > maxx)
+			maxx = i.x;
+		if (i.x < minx)
+			minx = i.x;
+		if (i.y > maxy)
+			maxy = i.y;
+		if (i.y < miny)
+			miny = i.y;
+		if (i.z > maxz)
+			maxz = i.z;
+		if (i.z < minz)
+			minz = i.z;
+	}
+
+	float range_x = std::max(std::max(maxx - minx, maxy - miny), maxz - minz);
+
+	maxx = FLT_MIN, maxy = FLT_MIN, maxz = FLT_MIN;
+	minx = FLT_MAX, miny = FLT_MAX, minz = FLT_MAX;
+	for (auto& i : __y) {
+		if (i.x > maxx)
+			maxx = i.x;
+		if (i.x < minx)
+			minx = i.x;
+		if (i.y > maxy)
+			maxy = i.y;
+		if (i.y < miny)
+			miny = i.y;
+		if (i.z > maxz)
+			maxz = i.z;
+		if (i.z < minz)
+			minz = i.z;
+	}
+
+	float range_y = std::max(std::max(maxx - minx, maxy - miny), maxz - minz);
+
+	float                              x_mse = 0.0f, y_mse = 0.0f;
+	pcl::search::KdTree<pcl::PointXYZ> tree_x;
+	pcl::search::KdTree<pcl::PointXYZ> tree_y;
+	tree_x.setInputCloud(__x.makeShared());
+	tree_y.setInputCloud(__y.makeShared());
+
+	for (auto& i : __x) {
+		std::vector<int>   idx(1);
+		std::vector<float> dis(1);
+		tree_y.nearestKSearch(i, 1, idx, dis);
+		x_mse += dis[0];
+	}
+
+	for (auto& i : __y) {
+		std::vector<int>   idx(1);
+		std::vector<float> dis(1);
+		tree_x.nearestKSearch(i, 1, idx, dis);
+		y_mse += dis[0];
+	}
+
+	x_mse /= __x.size(), y_mse /= __y.size();
+	printf("mse : %.3f %.3f\n", x_mse, y_mse);
+
+	float info = std::max(range_x, range_y);
+	printf("info : %.3f\n", info);
+	float psnr = 10.0f * std::log10(info * info / std::max(x_mse, y_mse));
+	return psnr;
 }

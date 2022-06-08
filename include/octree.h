@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-03 19:12:35
- * @LastEditTime: 2022-06-08 09:24:08
+ * @LastEditTime: 2022-06-08 20:13:39
  * @LastEditors: ChenRP07
  * @Description: C++ header for class GOF and class octree.
  */
@@ -14,6 +14,7 @@
 #include <math.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/search/kdtree.h>
 #include <string>
 #include <vector>
 
@@ -60,6 +61,7 @@ namespace operation {
 	extern void          SetBitMap(uint8_t, uint8_t, std::string&);
 	extern void          NodePointPosition(uint8_t __node, std::vector<size_t>& __pos);
 	extern void          SubnodePoint(const pcl::PointXYZ& __center, const size_t __pos, pcl::PointXYZ& __point);
+	extern float         PSNRGeo(const pcl::PointCloud<pcl::PointXYZ>& __x, const pcl::PointCloud<pcl::PointXYZ>& __y);
 }  // namespace operation
 
 namespace octree {
