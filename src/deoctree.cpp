@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-06-06 15:54:35
- * @LastEditTime: 2022-06-08 19:50:12
+ * @LastEditTime: 2022-06-08 19:55:44
  * @LastEditors: ChenRP07
  * @Description:
  */
@@ -97,12 +97,11 @@ void octree::DeOctree::GetPatch(std::string& __nodes, std::vector<pcl::PointXYZ>
 		// 1 bit position
 		std::vector<size_t> pos;
 		operation::NodePointPosition(static_cast<uint8_t>(__nodes[i]), pos);
-
+		printf("%lu %.2f %.2f %.2f \n", i, this->node_centers_[this->tree_height_][i].x, this->node_centers_[this->tree_height_][i].y, this->node_centers_[this->tree_height_][i].z);
 		// for each 1 bit
 		for (size_t j = 0; j < pos.size(); j++) {
 			// calculate leaf point and add it to __points
 			if (this->kMinResolution == 2.0f) {
-				printf("1\n");
 				operation::SubnodePoint(this->node_centers_[this->tree_height_][i], pos[j], __points[point_cnt]);
 			}
 			else if (this->kMinResolution > 2.0f) {
