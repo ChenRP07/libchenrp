@@ -1,7 +1,7 @@
 /***
  * @Author: ChenRP07
  * @Date: 2022-05-22 16:59:30
- * @LastEditTime: 2022-06-02 16:51:29
+ * @LastEditTime: 2022-06-14 15:14:54
  * @LastEditors: ChenRP07
  * @Description: This namespace pco::coder contain Morton code 1D-2D converter, TurbojpegCoder and ZstdCoder.
  */
@@ -35,6 +35,13 @@ namespace coder {
 	extern void ZstdEncoder(const std::string&, FILE*, const int);
 	// read a compressed string from file and decompress it
 	extern void ZstdDecoder(std::string&, FILE*);
+
+	// compress __src to __dst
+	extern void ZstdEncoder(const std::string& __src, std::string& __dst, const int kCompressionLevel);
+
+	// decompress __dst to __src
+	extern void ZstdDecoder(const std::string& __dst, std::string& __src);
+
 }  // namespace coder
 }  // namespace pco
 #endif
